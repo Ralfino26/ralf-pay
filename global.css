@@ -1,8 +1,10 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    padding: 40px;
+    /* Remove or reduce padding to place navbar flush */
+    padding: 0;
+    margin: 0;
     text-align: center;
+    background: #f5f5f5;
 }
 
 h1 {
@@ -46,4 +48,41 @@ textarea {
 }
 .error {
     color: red;
+}
+
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 20px;
+    /* Optional: fix to the top */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.navbar li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    margin-top: 80px; /* More space below the navbar */
 }
