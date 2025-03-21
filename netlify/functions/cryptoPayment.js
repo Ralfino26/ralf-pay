@@ -19,27 +19,34 @@ const cryptapiParams = {};  // Deze laat je leeg of voeg extra configuraties toe
 
 // Genereer een nieuw adres voor BTC en ETH betalingen
 exports.handler = async function(event, context) {
+    const coin = event.queryStringParameters.coin;
+
+    let coinType, myAddress, address, qrCode;
+
+    if (coin === 'btc') {
+        coinType = coinBTC;
+        myAddress = myAddressBTC;
+    } else if (coin === 'eth') {
+        coinType = coinETH;
+        myAddress = myAddressETH;
+    } else {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'Unsupported coin type' })
+        };
+    }
+
     try {
-        // Genereer BTC adres
-        const caBTC = new CryptAPI(coinBTC, myAddressBTC, callbackUrl, params, cryptapiParams);
-        const addressBTC = await caBTC.getAddress();  // Genereer BTC adres
-
-        // Genereer ETH adres
-        const caETH = new CryptAPI(coinETH, myAddressETH, callbackUrl, params, cryptapiParams);
-        const addressETH = await caETH.getAddress();  // Genereer ETH adres
-
-        // Genereer QR codes voor beide adressen
-        const qrCodeBTC = await caBTC.getQrcode(0, 512);  // BTC QR code
-        const qrCodeETH = await caETH.getQrcode(0, 512);  // ETH QR code
+        const ca = new CryptAPI(coinType, myAddress, callbackUrl, params, cryptapiParams);
+        address = await ca.getAddress();  // Genereer adres
+        qrCode = await ca.getQrcode(0, 512);  // Genereer QR code
 
         return {
             statusCode: 200,
             body: JSON.stringify({
-                message: 'Crypto adressen en QR codes gegenereerd!',
-                btcAddress: addressBTC,
-                ethAddress: addressETH,
-                qrCodeBTC: qrCodeBTC.qr_code,  // BTC QR code
-                qrCodeETH: qrCodeETH.qr_code   // ETH QR code
+                message: `${coinType.toUpperCase()} Adres en QR code gegenereerd!`,
+                [`${coin}Address`]: address,
+                [`qrCode${coin.toUpperCase()}`]: qrCode.qr_code  // Dynamisch op basis van de coin
             })
         };
     } catch (error) {
