@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overschrijving</title>
+    <link rel="stylesheet" href="global.css">
+</head>
+<body>
+    <h1>Overschrijving</h1>
+    <p>Kies een bank om de rekeninginformatie te bekijken:</p>
+    <div class="bank-buttons">
+        <button onclick="showInfo('KBC')">KBC</button>
+        <button onclick="showInfo('BNP')">BNP</button>
+        <button onclick="showInfo('Revolut')">Revolut</button>
+    </div>
+    <div id="bank-info" style="margin-top: 20px; font-weight: bold;">
+        <span id="rekeningnummer"></span>
+        <button id="copy-button" style="display: none;" onclick="copyToClipboard()">Kopiëren</button>
+    </div>
+
+    <a href="index.php"><button>Terug</button></a>
+
+    <script>
+        function showInfo(bank) {
+            const bankInfo = {
+                KBC: "BE00KBC0123456789",
+                BNP: "BE00BNP0123456789",
+                Revolut: "GB00REV0123456789"
+            };
+            const rekeningnummer = bankInfo[bank] || "Geen informatie beschikbaar.";
+            document.getElementById('rekeningnummer').innerText = rekeningnummer;
+            const copyButton = document.getElementById('copy-button');
+            if (bankInfo[bank]) {
+                copyButton.style.display = "inline-block";
+            } else {
+                copyButton.style.display = "none";
+            }
+        }
+
+        function copyToClipboard() {
+            const rekeningnummer = document.getElementById('rekeningnummer').innerText;
+            navigator.clipboard.writeText(rekeningnummer).then(() => {
+                alert("Rekeningnummer gekopieerd: " + rekeningnummer);
+            }).catch(err => {
+                alert("Kopiëren mislukt: " + err);
+            });
+        }
+    </script>
+</body>
+</html>

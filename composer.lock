@@ -1,0 +1,80 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "9be6e17b77dfb71dd60a19d0aeed2419",
+    "packages": [
+        {
+            "name": "cryptapi/php-cryptapi",
+            "version": "1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cryptapi/php-cryptapi.git",
+                "reference": "0d2a1444c3df77cafe39617467b6f1c0a85d64b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cryptapi/php-cryptapi/zipball/0d2a1444c3df77cafe39617467b6f1c0a85d64b3",
+                "reference": "0d2a1444c3df77cafe39617467b6f1c0a85d64b3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CryptAPI\\": "CryptAPI/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CryptAPI",
+                    "email": "info@cryptapi.io",
+                    "homepage": "https://cryptapi.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CryptAPI's PHP library",
+            "homepage": "https://github.com/cryptapi/php-cryptapi",
+            "keywords": [
+                "Polygon",
+                "avalanche-c",
+                "base",
+                "bitcoin",
+                "bitcoin cash",
+                "cryptapi",
+                "crypto",
+                "cryptocurrencies",
+                "ethereum",
+                "litecoin",
+                "payments"
+            ],
+            "support": {
+                "chat": "https://cryptapi.io",
+                "docs": "https://docs.cryptapi.io/",
+                "email": "info@cryptapi.io",
+                "issues": "https://github.com/cryptapi/php-cryptapi/issues",
+                "source": "https://github.com/cryptapi/php-cryptapi/tree/v1.7.1"
+            },
+            "time": "2024-12-11T10:37:13+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}
