@@ -34,7 +34,7 @@
     <div id="result">
     <?php
     if (isset($_GET['coin'])) {
-        require 'vendor/autoload.php'; // Zorg dat composer autoload klopt
+        require '../vendor/autoload.php'; // Zorg dat composer autoload klopt
 
         $coin = $_GET['coin'];
         $addresses = [
