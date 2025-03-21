@@ -1,4 +1,5 @@
-const fetch = require('node-fetch'); // Zorg ervoor dat fetch werkt in Node.js
+// Voeg dit toe bovenaan je payment.js bestand
+const fetch = require('node-fetch'); // Zorg ervoor dat fetch goed geïmporteerd is
 
 exports.handler = async function(event, context) {
     const { naam, bedrag, bericht } = JSON.parse(event.body);

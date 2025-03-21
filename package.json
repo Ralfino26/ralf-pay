@@ -1,0 +1,24 @@
+{
+  "name": "ralf-pay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ralfino26/ralf-pay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ralfino26/ralf-pay/issues"
+  },
+  "homepage": "https://github.com/Ralfino26/ralf-pay#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
