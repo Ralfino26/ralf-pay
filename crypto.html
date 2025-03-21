@@ -35,42 +35,44 @@
     <h1>Crypto Betaling voor Ralf</h1>
 
     <form id="paymentForm">
-        <button type="submit">Genereer BTC Adres</button>
-        <button type="submit">Genereer ETH Adres</button>
+        <button id="btcButton" type="button">Genereer BTC Adres</button>
+        <button id="ethButton" type="button">Genereer ETH Adres</button>
     </form>
 
-    <div id="btcSection" class="qr-code">
+    <div id="btcSection" class="qr-code" style="display: none;">
         <h2>BTC Betaling</h2>
         <p id="btcAddress"></p>
         <img id="btcQRCode" src="" alt="BTC QR code" />
     </div>
 
-    <div id="ethSection" class="qr-code">
+    <div id="ethSection" class="qr-code" style="display: none;">
         <h2>ETH Betaling</h2>
         <p id="ethAddress"></p>
         <img id="ethQRCode" src="" alt="ETH QR code" />
     </div>
 
     <script>
-        document.getElementById('paymentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        document.getElementById('btcButton').addEventListener('click', function() {
+            fetchCryptoData('btc');
+        });
 
-            // Hier gaan we bepalen of we BTC of ETH willen genereren
-            const isBTC = event.target.innerText.includes("BTC");
-            const url = `/.netlify/functions/cryptoPayment`;  // Netlify functie aanroepen
+        document.getElementById('ethButton').addEventListener('click', function() {
+            fetchCryptoData('eth');
+        });
 
-            fetch(url, {
+        function fetchCryptoData(coin) {
+            fetch(`/.netlify/functions/cryptoPayment?coin=${coin}`, {
                 method: 'GET'
             })
             .then(response => response.json())
             .then(data => {
-                if (isBTC) {
+                if (coin === 'btc') {
                     // Toon BTC gegevens
                     document.getElementById('btcAddress').innerText = `BTC Adres: ${data.btcAddress}`;
                     document.getElementById('btcQRCode').src = `data:image/png;base64,${data.qrCodeBTC}`;
                     document.getElementById('btcSection').style.display = 'block';
                     document.getElementById('ethSection').style.display = 'none';
-                } else {
+                } else if (coin === 'eth') {
                     // Toon ETH gegevens
                     document.getElementById('ethAddress').innerText = `ETH Adres: ${data.ethAddress}`;
                     document.getElementById('ethQRCode').src = `data:image/png;base64,${data.qrCodeETH}`;
@@ -81,7 +83,7 @@
             .catch(error => {
                 console.error('Fout bij het ophalen van crypto gegevens:', error);
             });
-        });
+        }
     </script>
 </body>
 </html>
