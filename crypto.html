@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Betaling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px;
+            text-align: center;
+        }
+        form {
+            background: #fff;
+            display: inline-block;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        input, button {
+            display: block;
+            width: 300px;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+        }
+        .qr-code {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Crypto Betaling voor Ralf</h1>
+
+    <form id="paymentForm">
+        <button type="submit">Genereer BTC Adres</button>
+        <button type="submit">Genereer ETH Adres</button>
+    </form>
+
+    <div id="btcSection" class="qr-code">
+        <h2>BTC Betaling</h2>
+        <p id="btcAddress"></p>
+        <img id="btcQRCode" src="" alt="BTC QR code" />
+    </div>
+
+    <div id="ethSection" class="qr-code">
+        <h2>ETH Betaling</h2>
+        <p id="ethAddress"></p>
+        <img id="ethQRCode" src="" alt="ETH QR code" />
+    </div>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Hier gaan we bepalen of we BTC of ETH willen genereren
+            const isBTC = event.target.innerText.includes("BTC");
+            const url = `/.netlify/functions/cryptoPayment`;  // Netlify functie aanroepen
+
+            fetch(url, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (isBTC) {
+                    // Toon BTC gegevens
+                    document.getElementById('btcAddress').innerText = `BTC Adres: ${data.btcAddress}`;
+                    document.getElementById('btcQRCode').src = `data:image/png;base64,${data.qrCodeBTC}`;
+                    document.getElementById('btcSection').style.display = 'block';
+                    document.getElementById('ethSection').style.display = 'none';
+                } else {
+                    // Toon ETH gegevens
+                    document.getElementById('ethAddress').innerText = `ETH Adres: ${data.ethAddress}`;
+                    document.getElementById('ethQRCode').src = `data:image/png;base64,${data.qrCodeETH}`;
+                    document.getElementById('ethSection').style.display = 'block';
+                    document.getElementById('btcSection').style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Fout bij het ophalen van crypto gegevens:', error);
+            });
+        });
+    </script>
+</body>
+</html>
