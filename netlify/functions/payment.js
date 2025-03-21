@@ -9,7 +9,7 @@ exports.handler = async function(event, context) {
     };
 
     try {
-        const response = await fetch('https://discord.com/api/webhooks/YOUR_WEBHOOK_URL', {
+        const response = await fetch('https://discord.com/api/webhooks/1352621309334655076/zsGlp1v340Pd55gkdPVuqHBrs_xjavPrvKxsqYqg8LhkBhBV02Cw7IkL-58N01owFDAX', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
