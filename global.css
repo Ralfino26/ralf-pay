@@ -15,3 +15,35 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
+.bank-info {
+    margin-top: 20px;
+    font-weight: bold;
+}
+.hidden {
+    display: none;
+}
+form {
+    background: #fff;
+    display: inline-block;
+    padding: 30px;
+    border-radius: 8px;
+}
+input,
+textarea {
+    display: block;
+    width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+}
+.qr-code {
+    margin-top: 20px;
+}
+.success {
+    color: green;
+    margin-top: 20px;
+}
+.error {
+    color: red;
+}
