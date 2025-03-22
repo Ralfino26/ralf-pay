@@ -95,10 +95,31 @@ textarea {
     margin-top: 80px; /* More space below the navbar */
 }
 
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.hamburger span {
+    height: 3px;
+    width: 25px;
+    background: #fff;
+    margin: 4px 0;
+}
+
 @media (max-width: 600px) {
     .navbar ul {
-        display: block;
+        display: none;
+        flex-direction: column;
         text-align: center;
+    }
+    .navbar ul.show {
+        display: block;
+    }
+    .hamburger {
+        display: flex;
     }
     .navbar li {
         display: block;
