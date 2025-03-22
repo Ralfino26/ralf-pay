@@ -48,6 +48,11 @@ textarea {
 .qr-code {
     margin-top: 20px;
 }
+.qr-code img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
 .success {
     color: green;
     margin-top: 20px;
@@ -93,6 +98,7 @@ textarea {
 
 .content {
     margin-top: 80px; /* More space below the navbar */
+    padding: 20px; /* wat extra ruimte */
 }
 
 .hamburger {
