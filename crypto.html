@@ -61,13 +61,13 @@
             .then(data => {
                 if (coin === 'btc') {
                     // Toon BTC gegevens
-                    document.getElementById('btcAddress').innerText = `BTC Adres: ${data.btcAddress}`;
+                    document.getElementById('btcAddress').innerText = `${data.btcAddress}`;
                     document.getElementById('btcQRCode').src = `data:image/png;base64,${data.qrCodeBTC}`;
                     document.getElementById('btcSection').style.display = 'block';
                     document.getElementById('ethSection').style.display = 'none';
                 } else if (coin === 'eth') {
                     // Toon ETH gegevens
-                    document.getElementById('ethAddress').innerText = `ETH Adres: ${data.ethAddress}`;
+                    document.getElementById('ethAddress').innerText = `${data.ethAddress}`;
                     document.getElementById('ethQRCode').src = `data:image/png;base64,${data.qrCodeETH}`;
                     document.getElementById('ethSection').style.display = 'block';
                     document.getElementById('btcSection').style.display = 'none';
