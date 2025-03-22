@@ -4,7 +4,7 @@ body {
     padding: 0;
     margin: 0;
     text-align: center;
-    background: linear-gradient(135deg, #a2facf 0%, #64acff 100%);
+    background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
 }
 
 h1 {
@@ -19,9 +19,11 @@ button {
     background-color: #43cea2;
     border: none;
     color: #fff;
+    transition: background-color 0.3s ease;
 }
 button:hover {
     background-color: #185a9d;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .bank-info {
@@ -99,6 +101,7 @@ textarea {
 .content {
     margin-top: 80px; /* More space below the navbar */
     padding: 20px; /* wat extra ruimte */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hamburger {

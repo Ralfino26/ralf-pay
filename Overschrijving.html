@@ -34,24 +34,30 @@
         </div>
     </div>
     <script>
+        const ibans = {
+            KBC: "BE35 7310 4046 4937",
+            BNP: "BE92 0019 0474 2823",
+            Revolut: "LT13 3250 0557 6804 8718"
+        };
+
         function showInfo(bank) {
-            const bankInfo = {
-                KBC: "BE00KBC0123456789",
-                BNP: "BE00BNP0123456789",
-                Revolut: "GB00REV0123456789"
-            };
-            const rekeningnummer = bankInfo[bank] || "Geen informatie beschikbaar.";
-            document.getElementById('rekeningnummer').innerText = rekeningnummer;
+            const rekeningnummerEl = document.getElementById('rekeningnummer');
             const copyButton = document.getElementById('copy-button');
-            if (bankInfo[bank]) {
-                copyButton.style.display = "inline-block";
-            } else {
-                copyButton.style.display = "none";
+            // Reset visibility
+            rekeningnummerEl.innerText = "";
+            copyButton.classList.add("hidden");
+
+            if (bank === "KBC" || bank === "BNP" || bank === "Revolut") {
+                rekeningnummerEl.innerText = bank + " IBAN\n\n" + ibans[bank];
+                rekeningnummerEl.dataset.iban = ibans[bank] || "";
+                if (ibans[bank]) {
+                    copyButton.classList.remove("hidden");
+                }
             }
         }
 
         function copyToClipboard() {
-            const rekeningnummer = document.getElementById('rekeningnummer').innerText;
+            const rekeningnummer = document.getElementById('rekeningnummer').dataset.iban;
             navigator.clipboard.writeText(rekeningnummer).then(() => {
                 alert("Rekeningnummer gekopieerd: " + rekeningnummer);
             }).catch(err => {
