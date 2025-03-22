@@ -1,37 +1,12 @@
-exports.handler = async function(event, context) {
-    if (event.httpMethod === 'POST') {
-        // Dit is waar de callback van CryptAPI binnenkomt
-        const paymentInfo = JSON.parse(event.body);
-        console.log("Betaling ontvangen:", paymentInfo);
 
-        // Je kunt hier de betaling verwerken, bijvoorbeeld de status controleren
-        // of opslaan in je database
-
-        // Stuur een succesbericht terug
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: 'Betaling ontvangen en verwerkt!' })
-        };
-    }
-
-    // Als het geen POST request is, stuur dan een fout terug
-    return {
-        statusCode: 405,
-        body: JSON.stringify({ message: 'Method Not Allowed' })
-    };
-};
-
-
-// 📩 Discord webhook integratie
 const https = require('https');
 
-function sendDiscordWebhook(euroAmount, btcAmount, address) {
-    const webhookUrl = "https://discord.com/api/webhooks/1353015839007182859/rwO4gmjsva2nXLJIAuUksiUf9I82Mdn-5SI58see4SXRn6jdkTAXbd2tWCzrDM4tZ7pp";
-    const data = JSON.stringify({
-        content: `💸 Je hebt €${euroAmount} aan Bitcoin ontvangen op adres ${address} (${btcAmount} BTC)`
-    });
+function sendDiscordWebhook(coin, euroAmount, amount, address) {
+    const cleanMessage = `Je hebt ${String(euroAmount)} euro aan ${coin.toUpperCase()} ontvangen op adres: ${String(address)}  (${String(amount)} ${coin.toUpperCase()})`;
 
-    const url = new URL(webhookUrl);
+    const data = JSON.stringify({ content: cleanMessage });
+
+    const url = new URL("https://discord.com/api/webhooks/1353015839007182859/rwO4gmjsva2nXLJIAuUksiUf9I82Mdn-5SI58see4SXRn6jdkTAXbd2tWCzrDM4tZ7pp");
     const options = {
         hostname: url.hostname,
         path: url.pathname + url.search,
@@ -55,3 +30,32 @@ function sendDiscordWebhook(euroAmount, btcAmount, address) {
     req.write(data);
     req.end();
 }
+
+exports.handler = async (event) => {
+    try {
+        console.log("⛔ CALLBACK BINNEN");
+        console.log("Body:", event.body);
+
+        const body = JSON.parse(event.body || '{}');
+
+        if (body.pending === 0) {
+            const coin = body.coin || "crypto";
+            const eur = body.value_coin_convert?.EUR || "Onbekend";
+            const amount = body.value_coin || 0;
+            const addr = body.address_in || "Onbekend";
+
+            sendDiscordWebhook(coin, eur, amount, addr);
+        }
+
+        return {
+            statusCode: 200,
+            body: 'ok'
+        };
+    } catch (error) {
+        console.error("FOUT:", error);
+        return {
+            statusCode: 500,
+            body: 'error'
+        };
+    }
+};

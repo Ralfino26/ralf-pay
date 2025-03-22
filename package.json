@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Ralfino26/ralf-pay#readme",
   "dependencies": {
     "@cryptapi/api": "^1.1.1",
+    "axios": "^1.8.4",
     "node-fetch": "^3.3.2"
   }
 }
