@@ -31,6 +31,7 @@
         <div id="btcSection" class="qr-code" style="display: none;">
             <h2>BTC Betaling</h2>
             <p id="btcAddress"></p>
+            <button onclick="copyToClipboard('btcAddress')">Kopieer Adres</button>
             <img id="btcQRCode" src="" alt="BTC QR code" />
             <p>Scan de QR-code met je wallet voor een snelle betaling.</p>
         </div>
@@ -38,6 +39,7 @@
         <div id="ethSection" class="qr-code" style="display: none;">
             <h2>ETH Betaling</h2>
             <p id="ethAddress"></p>
+            <button onclick="copyToClipboard('ethAddress')">Kopieer Adres</button>
             <img id="ethQRCode" src="" alt="ETH QR code" />
             <p>Scan de QR-code met je wallet voor een snelle betaling.</p>
         </div>
@@ -74,6 +76,13 @@
             .catch(error => {
                 console.error('Fout bij het ophalen van crypto gegevens:', error);
             });
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text)
+                .then(() => alert(`Adres gekopieerd: ${text}`))
+                .catch(err => alert(`Kopiëren mislukt: ${err}`));
         }
     </script>
     <script src="hamburger.js"></script>
