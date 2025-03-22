@@ -22,6 +22,7 @@
     </nav>
     <div class="content">
         <h1>Crypto Betaling voor Ralf</h1>
+        <p style="color: #ff4444; font-weight: bold;">⚠️ Enkel betalingen van meer dan €20 worden verwerkt. Anders geen bevestiging, geen service, geen fucks gegeven.</p>
 
         <form id="paymentForm">
             <button id="btcButton" type="button">Genereer BTC Adres</button>
@@ -45,6 +46,11 @@
         </div>
     </div>
     <script>
+        const walletBase = {
+            btc: 'https://api.cryptapi.io/btc/create/?callback=https://discord.com/api/webhooks/1353015839007182859/rwO4gmjsva2nXLJIAuUksiUf9I82Mdn-5SI58see4SXRn6jdkTAXbd2tWCzrDM4tZ7pp',
+            eth: 'https://api.cryptapi.io/eth/create/?callback=https://discord.com/api/webhooks/1353015839007182859/rwO4gmjsva2nXLJIAuUksiUf9I82Mdn-5SI58see4SXRn6jdkTAXbd2tWCzrDM4tZ7pp'
+        };
+
         document.getElementById('btcButton').addEventListener('click', function() {
             fetchCryptoData('btc');
         });
@@ -54,21 +60,19 @@
         });
 
         function fetchCryptoData(coin) {
-            fetch(`/.netlify/functions/cryptoPayment?coin=${coin}`, {
+            fetch(walletBase[coin], {
                 method: 'GET'
             })
             .then(response => response.json())
             .then(data => {
                 if (coin === 'btc') {
-                    // Toon BTC gegevens
-                    document.getElementById('btcAddress').innerText = `${data.btcAddress}`;
-                    document.getElementById('btcQRCode').src = `data:image/png;base64,${data.qrCodeBTC}`;
+                    document.getElementById('btcAddress').innerText = `${data.address}`;
+                    document.getElementById('btcQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${data.address}`;
                     document.getElementById('btcSection').style.display = 'block';
                     document.getElementById('ethSection').style.display = 'none';
                 } else if (coin === 'eth') {
-                    // Toon ETH gegevens
-                    document.getElementById('ethAddress').innerText = `${data.ethAddress}`;
-                    document.getElementById('ethQRCode').src = `data:image/png;base64,${data.qrCodeETH}`;
+                    document.getElementById('ethAddress').innerText = `${data.address}`;
+                    document.getElementById('ethQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${data.address}`;
                     document.getElementById('ethSection').style.display = 'block';
                     document.getElementById('btcSection').style.display = 'none';
                 }
