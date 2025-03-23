@@ -84,6 +84,7 @@
       <ul class="flex space-x-4 text-sm">
         <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
         <li><a href="Overschrijving.html" class="text-blue-400 font-semibold">Overschrijving</a></li>
+        <li><a href="Payconiq.html" class="hover:text-blue-400">Payconiq</a></li>
         <li><a href="crypto.html" class="hover:text-blue-400">Crypto</a></li>
         <li><a href="cash.html" class="hover:text-blue-400">Cash</a></li>
       </ul>
@@ -138,42 +139,5 @@
       }
     </script>
     <script src="hamburger.js"></script>
-
-    <div id="payconiqSection" class="bg-zinc-900 rounded-lg p-6 space-y-4 mt-10">
-        <h2 class="text-2xl font-bold text-center">Payconiq Betaling</h2>
-        <p class="text-center text-sm text-zinc-400">Selecteer een bedrag en scan de QR-code met je Payconiq-app.</p>
-      
-        <div class="flex justify-center">
-          <select id="amountSelect" onchange="showQR()" class="bg-zinc-800 text-white p-2 rounded-lg">
-            <option value="" disabled selected>Kies bedrag</option>
-            <option value="1">€1</option>
-            <option value="2">€2</option>
-            <option value="5">€5</option>
-            <option value="10">€10</option>
-            <option value="15">€15</option>
-            <option value="20">€20</option>
-            <option value="25">€25</option>
-            <option value="50">€50</option>
-            <option value="75">€75</option>
-            <option value="100">€100</option>
-          </select>
-        </div>
-      
-        <div id="qrDisplay" class="hidden flex flex-col items-center space-y-2 mt-6">
-          <img id="qrImage" src="" alt="Payconiq QR" class="w-40 h-40 rounded-md shadow-md" />
-          <p class="text-xs text-zinc-500">Scan deze QR met je Payconiq-app om te betalen.</p>
-        </div>
-      </div>
-      
-      <script>
-        function showQR() {
-          const amount = document.getElementById('amountSelect').value;
-          const qrDisplay = document.getElementById('qrDisplay');
-          const qrImage = document.getElementById('qrImage');
-          qrImage.src = `img/payconiq-${amount}.png`; // Jij voegt deze toe
-          qrDisplay.classList.remove('hidden');
-        }
-      </script>
-      
   </body>
 </html>
