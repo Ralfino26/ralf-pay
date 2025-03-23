@@ -6,7 +6,7 @@
     <title>Cashbetaling aan Ralf</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-zinc-950 text-white font-sans min-h-screen overflow-hidden flex flex-col">
+  <body class="bg-zinc-950 text-white font-sans min-h-screen">
     <!-- 
     <nav class="bg-zinc-900 p-4 flex items-center justify-between shadow-md">
       <ul class="flex space-x-4 text-sm">
@@ -17,27 +17,22 @@
       </ul>
     </nav>
     -->
+    <nav class="bg-zinc-900 p-4 flex items-center justify-between shadow-md md:justify-center relative">
+      <ul class="hidden md:flex space-x-4 text-sm">
+        <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
+        <li><a href="Overschrijving.html" class="hover:text-blue-400">Overschrijving</a></li>
+        <li><a href="crypto.html" class="hover:text-blue-400">Crypto</a></li>
+        <li><a href="cash.html" class="text-blue-400 font-semibold">Cash</a></li>
+      </ul>
+      <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
     
-    
-    <main class="flex-1 overflow-y-auto">
-      <!-- ALLES onder nav hier in -->
-      <nav class="bg-zinc-900 p-4 flex items-center justify-between shadow-md md:justify-center relative">
-        <ul class="hidden md:flex space-x-4 text-sm">
-          <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
-          <li><a href="Overschrijving.html" class="hover:text-blue-400">Overschrijving</a></li>
-          <li><a href="crypto.html" class="hover:text-blue-400">Crypto</a></li>
-          <li><a href="cash.html" class="text-blue-400 font-semibold">Cash</a></li>
-        </ul>
-        <button id="menu-btn" class="md:hidden text-white focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </nav>
-    </main>
-
     <div id="mobile-menu" class="fixed inset-0 bg-zinc-950 text-white z-50 hidden flex flex-col justify-center items-center">
       <div class="absolute top-4 right-4">
         <button id="close-btn" class="text-white text-2xl">&times;</button>
