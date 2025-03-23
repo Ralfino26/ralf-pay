@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -67,4 +68,112 @@
     </script>
     <script src="hamburger.js"></script>
 </body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overschrijving</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-950 text-white font-sans min-h-screen">
+    <nav class="bg-zinc-900 p-4 flex items-center justify-between shadow-md">
+      <ul class="flex space-x-4 text-sm">
+        <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
+        <li><a href="Overschrijving.html" class="text-blue-400 font-semibold">Overschrijving</a></li>
+        <li><a href="crypto.html" class="hover:text-blue-400">Crypto</a></li>
+        <li><a href="cash.html" class="hover:text-blue-400">Cash</a></li>
+      </ul>
+      <div class="md:hidden">
+        <button class="text-white">☰</button>
+      </div>
+    </nav>
+
+    <div class="max-w-md mx-auto mt-16 px-4 text-center">
+      <h1 class="text-3xl font-bold mb-4">Overschrijving</h1>
+      <p class="text-zinc-400 mb-6">Kies een bank om de rekeninginformatie te bekijken:</p>
+
+      <div class="flex justify-center gap-4 mb-6">
+        <button onclick="showInfo('KBC')" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg">KBC</button>
+        <button onclick="showInfo('BNP')" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg">BNP</button>
+        <button onclick="showInfo('Revolut')" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg">Revolut</button>
+      </div>
+
+      <div id="bank-info" class="bg-zinc-900 rounded-lg p-4 min-h-[100px]">
+        <span id="rekeningnummer" class="whitespace-pre-line block text-sm text-zinc-300"></span>
+        <button id="copy-button" class="mt-4 hidden bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg text-sm" onclick="copyToClipboard()">Kopiëren</button>
+      </div>
+    </div>
+
+    <script>
+      const ibans = {
+        KBC: "BE35 7310 4046 4937",
+        BNP: "BE92 0019 0474 2823",
+        Revolut: "LT13 3250 0557 6804 8718"
+      };
+
+      function showInfo(bank) {
+        const rekeningnummerEl = document.getElementById('rekeningnummer');
+        const copyButton = document.getElementById('copy-button');
+        rekeningnummerEl.innerText = "";
+        copyButton.classList.add("hidden");
+
+        if (ibans[bank]) {
+          rekeningnummerEl.innerText = bank + " IBAN\n\n" + ibans[bank];
+          rekeningnummerEl.dataset.iban = ibans[bank];
+          copyButton.classList.remove("hidden");
+        }
+      }
+
+      function copyToClipboard() {
+        const rekeningnummer = document.getElementById('rekeningnummer').dataset.iban;
+        navigator.clipboard.writeText(rekeningnummer).then(() => {
+          alert("Rekeningnummer gekopieerd: " + rekeningnummer);
+        }).catch(err => {
+          alert("Kopiëren mislukt: " + err);
+        });
+      }
+    </script>
+    <script src="hamburger.js"></script>
+
+    <div id="payconiqSection" class="bg-zinc-900 rounded-lg p-6 space-y-4 mt-10">
+        <h2 class="text-2xl font-bold text-center">Payconiq Betaling</h2>
+        <p class="text-center text-sm text-zinc-400">Selecteer een bedrag en scan de QR-code met je Payconiq-app.</p>
+      
+        <div class="flex justify-center">
+          <select id="amountSelect" onchange="showQR()" class="bg-zinc-800 text-white p-2 rounded-lg">
+            <option value="" disabled selected>Kies bedrag</option>
+            <option value="1">€1</option>
+            <option value="2">€2</option>
+            <option value="5">€5</option>
+            <option value="10">€10</option>
+            <option value="15">€15</option>
+            <option value="20">€20</option>
+            <option value="25">€25</option>
+            <option value="50">€50</option>
+            <option value="75">€75</option>
+            <option value="100">€100</option>
+          </select>
+        </div>
+      
+        <div id="qrDisplay" class="hidden flex flex-col items-center space-y-2 mt-6">
+          <img id="qrImage" src="" alt="Payconiq QR" class="w-40 h-40 rounded-md shadow-md" />
+          <p class="text-xs text-zinc-500">Scan deze QR met je Payconiq-app om te betalen.</p>
+        </div>
+      </div>
+      
+      <script>
+        function showQR() {
+          const amount = document.getElementById('amountSelect').value;
+          const qrDisplay = document.getElementById('qrDisplay');
+          const qrImage = document.getElementById('qrImage');
+          qrImage.src = `img/payconiq-${amount}.png`; // Jij voegt deze toe
+          qrDisplay.classList.remove('hidden');
+        }
+      </script>
+      
+  </body>
 </html>
