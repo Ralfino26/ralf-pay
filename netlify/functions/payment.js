@@ -1,7 +1,6 @@
 
 // Gebruik dynamic import voor node-fetch
 let fetch;
-require('dotenv').config(); // Laad variabelen uit .env
 
 exports.handler = async function(event, context) {
     if (!fetch) {
