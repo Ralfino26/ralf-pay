@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Betaling</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-950 text-white font-sans min-h-screen">
+    <nav class="bg-zinc-900 p-4 flex items-center justify-between shadow-md md:justify-center relative">
+      <ul class="hidden md:flex space-x-4 text-sm">
+        <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
+        <li><a href="Overschrijving.html" class="hover:text-blue-400">Overschrijving</a></li>
+        <li><a href="crypto.html" class="text-blue-400 font-semibold">Crypto</a></li>
+        <li><a href="cash.html" class="hover:text-blue-400">Cash</a></li>
+      </ul>
+      <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+    
+    <div id="mobile-menu" class="fixed inset-0 bg-zinc-950 text-white z-50 hidden flex flex-col justify-center items-center">
+      <div class="absolute top-4 right-4">
+        <button id="close-btn" class="text-white text-2xl">&times;</button>
+      </div>
+      <ul class="flex flex-col items-center space-y-6 text-xl h-full justify-center">
+        <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
+        <li><a href="Overschrijving.html" class="hover:text-blue-400">Overschrijving</a></li>
+        <li><a href="crypto.html" class="text-blue-400 font-semibold">Crypto</a></li>
+        <li><a href="cash.html" class="hover:text-blue-400">Cash</a></li>
+      </ul>
+    </div>
+
+    <div class="max-w-md mx-auto mt-16 px-4 text-center space-y-6">
+      <h1 class="text-3xl font-bold">Crypto Betaling voor Ralf</h1>
+
+      <div class="flex justify-center gap-4">
+        <button onclick="showSection('btc')" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg">Toon BTC</button>
+        <button onclick="showSection('eth')" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg">Toon ETH</button>
+        <button onclick="showSection('sol')" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg">Toon SOL</button>
+      </div>
+
+      <div id="btcSection" class="hidden bg-zinc-900 rounded-lg p-4 space-y-3">
+        <h2 class="text-xl font-semibold">BTC Betaling</h2>
+        <p id="btcAddress" class="break-all text-sm text-zinc-300">bc1qjp6p7r868uhes3psc9fuk2h2z9f8ag336dt56e</p>
+        <button onclick="copyToClipboard('btcAddress')" class="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg text-sm">Kopieer Adres</button>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bc1qjp6p7r868uhes3psc9fuk2h2z9f8ag336dt56e" alt="BTC QR code" class="mx-auto max-w-[200px]" />
+        <p class="text-xs text-zinc-500">Scan de QR-code met je wallet.</p>
+      </div>
+
+      <div id="ethSection" class="hidden bg-zinc-900 rounded-lg p-4 space-y-3">
+        <h2 class="text-xl font-semibold">ETH Betaling</h2>
+        <p id="ethAddress" class="break-all text-sm text-zinc-300">0x69084F76aC9AE6CBA7501EC9C5E8C0754D0421d3</p>
+        <button onclick="copyToClipboard('ethAddress')" class="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg text-sm">Kopieer Adres</button>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=0x69084F76aC9AE6CBA7501EC9C5E8C0754D0421d3" alt="ETH QR code" class="mx-auto max-w-[200px]" />
+        <p class="text-xs text-zinc-500">Scan de QR-code met je wallet.</p>
+      </div>
+
+      <div id="solSection" class="hidden bg-zinc-900 rounded-lg p-4 space-y-3">
+        <h2 class="text-xl font-semibold">SOL Betaling</h2>
+        <p id="solAddress" class="break-all text-sm text-zinc-300">6zFJTGF62RmaMU17hdbL6c7yRvch6937PWy1KgDjaxSL</p>
+        <button onclick="copyToClipboard('solAddress')" class="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg text-sm">Kopieer Adres</button>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=6zFJTGF62RmaMU17hdbL6c7yRvch6937PWy1KgDjaxSL" alt="SOL QR code" class="mx-auto max-w-[200px]" />
+        <p class="text-xs text-zinc-500">Scan de QR-code met je wallet.</p>
+      </div>
+
+      <p class="break-words text-sm text-yellow-400 bg-yellow-900 p-4 rounded-lg">Ethereum en Solana gebruiken een enkel wallet-adres voor alle tokens op hun netwerk. Dit betekent dat je verschillende tokens naar hetzelfde adres kunt sturen.<br>Bijvoorbeeld: USDT, Meme tokens, ...</p>
+    </div>
+
+    
+    <script>
+      function showSection(type) {
+        document.getElementById('btcSection').classList.add('hidden');
+        document.getElementById('ethSection').classList.add('hidden');
+        document.getElementById('solSection').classList.add('hidden');
+        if (type === 'btc') {
+          document.getElementById('btcSection').classList.remove('hidden');
+        } else if (type === 'eth') {
+          document.getElementById('ethSection').classList.remove('hidden');
+        } else {
+          document.getElementById('solSection').classList.remove('hidden');
+        }
+      }
+
+      function copyToClipboard(id) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text)
+          .then(() => alert(`Adres gekopieerd: ${text}`))
+          .catch(err => alert(`Kopiëren mislukt: ${err}`));
+      }
+    </script>
+
+    <script src="hamburger.js"></script>
+  </body>
+</html>
