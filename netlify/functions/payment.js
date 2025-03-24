@@ -1,9 +1,11 @@
+
 // Gebruik dynamic import voor node-fetch
 let fetch;
+require('dotenv').config(); // Laad variabelen uit .env
 
 exports.handler = async function(event, context) {
     if (!fetch) {
-        fetch = (await import('node-fetch')).default;  // Dynamisch importeren van fetch
+        fetch = (await import('node-fetch')).default; // Dynamisch importeren van fetch
     }
 
     const { naam, bedrag, bericht } = JSON.parse(event.body);
@@ -12,8 +14,18 @@ exports.handler = async function(event, context) {
         content: `💸 Nieuwe cashbetaling!\nNaam: ${naam}\nBedrag: €${bedrag}\nOpmerking: ${bericht}`,
     };
 
+    // Haal webhook URL uit environment variable
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+
+    if (!webhookUrl) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: 'Webhook URL ontbreekt in .env' }),
+        };
+    }
+
     try {
-        const response = await fetch('https://discord.com/api/webhooks/1352621309334655076/zsGlp1v340Pd55gkdPVuqHBrs_xjavPrvKxsqYqg8LhkBhBV02Cw7IkL-58N01owFDAX', {
+        const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -33,7 +45,7 @@ exports.handler = async function(event, context) {
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Server error', error: error.message }),
+            body: JSON.stringify({ message: 'Fetch failed', error: error.message }),
         };
     }
 };
